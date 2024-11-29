@@ -1,0 +1,414 @@
+DATA:
+
+; Direcciones I/O reservadas
+leds 		0
+switches 	0
+displays	0
+botones		0
+segundos	0
+milisegundos	0
+microsegundos	0
+LSD		0
+
+;-- No son reservas de vga propiamente tal, pero
+;-- las variables están mapeadas a los registros
+;-- que marcan la posición en pantalla
+
+bloque_principal_x 0 
+bloque_principal_y 0
+bloque_medio_x 0 
+bloque_medio_y 0
+bloque_bajo_x 0
+bloque_bajo_y 0
+
+;----------------------------------------------
+;-- Parámetros del juego
+;--     Estos no deben ser modificados. Se usan
+;--     para restablecer los valores al inicio
+;--     de cada partida o cada ronda según
+;--     corresponda. Todos comienzan con "def"
+;----------------------------------------------
+def_H_speed 5
+def_H_update_ratio 25
+def_V_speed 0
+def_V_update_ratio 25
+def_animacion_bajar_speed 2
+def_animacion_bajar_update_ratio 25
+def_inicio_grua_X 253 //303
+def_fin_grua_X 481 //431
+def_inicio_grua_Y 300
+def_direccion_derecha 0
+def_direccion_izquierda 1
+def_arista_bloque 64
+def_screen_width 799
+def_screen_height 599
+def_permisividad 4
+def_inicio_torre 367
+def_dimension_nivel 5
+
+;----------------------------------------------
+;-- Variables de juego
+;--     Estas son variables que pueden cambiar
+;--     durante la ejecución.
+;----------------------------------------------
+var_direccion_actual 0
+var_en_caida 0
+var_marca_temporal 0
+var_H_speed 0
+var_H_update_ratio 0
+var_V_speed 0
+var_V_update_ratio 0
+var_total_score 0
+var_last_threshold 0
+var_inicio_grua_X 0
+var_fin_grua_X 0
+var_inicio_grua_Y 0
+
+
+;----------------------------------------------
+;-- Listas dinámicas
+;--     Las listas dinámicas son todos los
+;--     conjuntos de datos de longitud variable
+;--     que deben ser accedidos a través de
+;--     offsets.
+;----------------------------------------------
+dynamic 0
+
+CODE:
+JMP main
+
+;--------------------------;
+;       FUNCIONES          ;
+;   Las funciones deberían ;
+;   ser igual en cualquier ;
+;   programa.              ;
+;--------------------------;
+
+fn_revisar_boton_no_safe:
+    ;-- Recibe en regA el botón a revisar
+    ;-- retorna en regA true o false
+    CMP A, (botones)
+    JNE _rbns_false
+    MOV A, 1
+    RET
+    _rbns_false:
+    MOV A, 0
+    RET
+
+;--------------------------;
+;         MÉTODOS          ;
+;   Los métodos son cosas  ;
+;   específicas de este    ;
+;   programa.              ;
+;--------------------------;
+
+meth_reset_movement:
+    MOV A, (def_H_speed)
+    MOV (var_H_speed), A
+    MOV A, (def_V_speed)
+    MOV (var_V_speed), A
+    MOV A, (def_direccion_derecha)
+    MOV (var_direccion_actual), A
+    MOV A, 0
+    MOV (var_en_caida), A
+    MOV A, (def_H_update_ratio)
+    MOV (var_H_update_ratio), A
+    MOV A, (def_V_update_ratio)
+    MOV (var_V_update_ratio), A
+    RET
+
+meth_reset_positions:
+    MOV A, (def_fin_grua_X)
+    MOV (var_fin_grua_X), A
+    MOV A, (def_inicio_grua_X)
+    MOV (bloque_principal_x), A
+    MOV (var_inicio_grua_X), A
+    MOV A, (def_inicio_grua_Y)
+    MOV (bloque_principal_y), A
+    MOV (var_inicio_grua_Y), A
+    MOV A, (def_inicio_torre)
+    MOV (bloque_medio_x), A
+    MOV (bloque_bajo_x), A
+    MOV A, (def_screen_height)
+    SUB A, (def_arista_bloque)
+    MOV (bloque_bajo_y), A
+    SUB A, (def_arista_bloque)
+    MOV (bloque_medio_y), A
+    RET
+
+meth_reset_principal_position:
+    MOV A, (var_inicio_grua_X)
+    MOV (bloque_principal_x), A
+    MOV A, (var_inicio_grua_Y)
+    MOV (bloque_principal_y), A
+    RET
+
+meth_reset_score:
+    MOV A, 0
+    MOV (var_total_score), A
+    RET
+
+;--------------------------;
+;          JUEGO           ;
+;--------------------------;
+main:
+CALL meth_reset_positions
+CALL meth_reset_movement
+CALL meth_reset_principal_position
+
+ronda:
+MOV A, (def_V_speed)
+MOV (var_V_speed), A
+
+
+movimiento_horizontal:
+
+    mh_revisar_caida:
+    MOV A, 0b10000
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JEQ movimiento_caida
+
+    mh_revisar_direccion:
+    MOV A, (var_direccion_actual)
+    CMP A, (def_direccion_derecha)
+    JNE mh_move_left
+    
+    mh_move_right:
+        MOV A, (milisegundos)
+        MOV (var_marca_temporal), A
+        _mh_mr_lock_temporal:
+        MOV A, (milisegundos)
+        SUB A, (var_marca_temporal)
+        CMP A, (var_H_update_ratio)
+        JLT _mh_mr_lock_temporal
+        MOV A, (bloque_principal_x)
+        ADD A, (var_H_speed)
+        MOV (bloque_principal_x), A
+
+        ;-- revisar si cambiamos de dirección
+        CMP A, (var_fin_grua_X)
+        JLT movimiento_horizontal
+        MOV A, (def_direccion_izquierda)
+        MOV (var_direccion_actual), A
+        JMP movimiento_horizontal
+
+    mh_move_left:
+        MOV A, (milisegundos)
+        MOV (var_marca_temporal), A
+        _mh_ml_lock_temporal:
+        MOV A, (milisegundos)
+        SUB A, (var_marca_temporal)
+        CMP A, (var_H_update_ratio)
+        JLT _mh_ml_lock_temporal
+        MOV A, (bloque_principal_x)
+        SUB A, (var_H_speed)
+        MOV (bloque_principal_x), A
+
+        ;-- revisar si cambiamos de dirección
+        CMP A, (var_inicio_grua_X)
+        JGT movimiento_horizontal
+        MOV A, (def_direccion_derecha)
+        MOV (var_direccion_actual), A
+        JMP movimiento_horizontal
+        
+movimiento_caida:
+    MOV A, (var_direccion_actual)
+    CMP A, (def_direccion_derecha)
+    JNE _mc_fall_left
+
+    _mc_fall_right:
+    MOV A, (milisegundos),
+    MOV (var_marca_temporal), A
+    _mc_fr_lock_temporal:
+    MOV A, (milisegundos)
+    SUB A, (var_marca_temporal)
+    CMP A, (var_V_update_ratio)
+    JLT _mc_fr_lock_temporal
+    MOV A, (bloque_principal_x)
+    ADD A, (var_H_speed)
+    MOV (bloque_principal_x), A
+    MOV A, (var_V_speed)
+    ADD A, 4
+    MOV (var_V_speed), A
+    MOV A, (bloque_principal_y)
+    ADD A, (var_V_speed)
+    MOV (bloque_principal_y), A
+    ;-- verificamos si estamos en una altura crítica
+    PUSH A
+    MOV A, (bloque_medio_y)
+    SUB A, (def_arista_bloque)
+    SUB A, (var_V_speed)
+    POP B
+    CMP A, B
+    JLE _mc_momento_decisivo
+    JMP _mc_fall_right
+
+    _mc_fall_left:
+    MOV A, (milisegundos),
+    MOV (var_marca_temporal), A
+    _mc_fl_lock_temporal:
+    MOV A, (milisegundos)
+    SUB A, (var_marca_temporal)
+    CMP A, (var_V_update_ratio)
+    JLT _mc_fl_lock_temporal
+    MOV A, (bloque_principal_x)
+    SUB A, (var_H_speed)
+    MOV (bloque_principal_x), A
+    MOV A, (var_V_speed)
+    ADD A, 4
+    MOV (var_V_speed), A
+    MOV A, (bloque_principal_y)
+    ADD A, (var_V_speed)
+    MOV (bloque_principal_y), A
+    ;-- verificamos si estamos en una altura crítica
+    PUSH A
+    MOV A, (bloque_medio_y)
+    SUB A, (def_arista_bloque)
+    SUB A, (var_V_speed)
+    POP B
+    CMP A, B
+    JLE _mc_momento_decisivo
+    JMP _mc_fall_left
+
+    _mc_momento_decisivo:
+    ;-- medio_principal = medio_medio +- def_permisividad
+    MOV A, (def_arista_bloque)
+    SHR A
+    MOV B, A
+    MOV A, (bloque_medio_x)
+    ADD A, B
+    ADD A, (def_permisividad)
+    ;-- si está aun más a la derechao
+    CMP A, (bloque_principal_x)
+    JLT _mc_etern
+
+    MOV A, (bloque_medio_x)
+    SUB A, B
+    SUB A, (def_permisividad)
+    CMP A, (bloque_principal_x)
+    JGT _mc_etern
+    JMP completar_ronda
+
+    _mc_etern:
+    ;-- se descubrió un fallo, debe caer para siempre
+    MOV A, (milisegundos)
+    MOV (var_marca_temporal), A
+    _mc_e_lock_temporal:
+    MOV A, (milisegundos)
+    SUB A, (var_marca_temporal)
+    CMP A, (var_V_update_ratio)
+    JLT _mc_e_lock_temporal
+    ;-- hay que ver para que lado caer y tomar la decisión
+    ;-- respecto de la imagen diagonal
+    MOV A, (var_V_speed)
+    ADD A, 2
+    MOV (var_V_speed), A
+    MOV A, (bloque_principal_y)
+    ADD A, (var_V_speed)
+    MOV (bloque_principal_y), A
+    CMP A, (def_screen_height)
+    JLE _mc_etern
+    CALL meth_reset_principal_position
+    JMP ronda
+
+completar_ronda:
+    
+    ;-- este pequeño ajuste esta para alinear la altura de los bloques y que
+    ;-- no se solapen considerando la permisividad vertical
+    MOV A, (bloque_medio_y)
+    SUB A, (def_arista_bloque)
+    MOV (bloque_principal_y), A
+
+    ;-- sumar puntacos
+    INC (var_total_score)
+    MOV A, (var_total_score)
+    MOV (displays), A
+
+    ;-- animacion de movimiento hacia abajo
+    ;-- necesitamos bajar hasta que bloque bajo esté en 0
+    _cr_animacion_bajar:
+    MOV A, (milisegundos)
+    MOV (var_marca_temporal), A
+    _cr_ab_lock_temporal:
+    MOV A, (milisegundos)
+    SUB A, (var_marca_temporal)
+    CMP A, (def_animacion_bajar_update_ratio)
+    JLT _cr_ab_lock_temporal
+    MOV A, (bloque_principal_y)
+    ADD A, (def_animacion_bajar_speed)
+    MOV (bloque_principal_y), A
+    MOV A, (bloque_medio_y)
+    ADD A, (def_animacion_bajar_speed)
+    MOV (bloque_medio_y), A
+    MOV A, (bloque_bajo_y)
+    ADD A, (def_animacion_bajar_speed)
+    MOV (bloque_bajo_y), A
+    
+    ;-- ahora verificamos si tenemos que seguir bajando
+    CMP A, (def_screen_height)
+    JLT _cr_animacion_bajar
+
+    ;-- hacer el cambiazo
+    ;-- bajo -> medio, medio -> principal, principal -> start
+
+    ;-- bajo->medio
+    MOV A, (bloque_medio_x)
+    MOV (bloque_bajo_x), A
+    MOV A, (bloque_medio_y)
+    MOV (bloque_bajo_y), A
+
+    ;-- medio->principal
+    MOV A, (bloque_principal_x)
+    MOV (bloque_medio_x), A
+    MOV A, (bloque_principal_y)
+    MOV (bloque_medio_y), A
+
+    ;-- principal->start
+    MOV A, (var_inicio_grua_Y)
+    MOV (bloque_principal_y), A
+
+    MOV A, (var_inicio_grua_X)
+    MOV (bloque_principal_x), A
+    // wtf
+    // _cr_comenzar_random_x:
+    // MOV A, (milisegundos)
+    // CMP A, (var_inicio_grua_X)
+    // JLT _cr_comenzar_random_x
+    // CMP A, (var_fin_grua_X)
+    // JGT _cr_comenzar_random_x
+    // MOV (bloque_principal_x), A
+
+    ;-- cada 10 puntos aumentamos la velocidad del bloque
+    MOV A, (var_total_score)
+    SUB A, (var_last_threshold)
+    CMP A, (def_dimension_nivel)
+    JLT _cr_dont_increase_speed
+    INC (var_H_speed)
+    
+    MOV A, (var_inicio_grua_X)
+    CMP A, 50
+    JLE _cr_hard_left_limit
+    SUB A, 20
+    MOV (var_inicio_grua_X), A
+
+    _cr_hard_left_limit:
+    MOV A, (var_fin_grua_X)
+    CMP A, 685
+    JGE _cr_hard_right_limit
+    ADD A, 20
+    MOV (var_fin_grua_X), A
+
+    _cr_hard_right_limit:
+    MOV A, (var_inicio_grua_Y)
+    CMP A, 50
+    JLE _cr_hard_top_limit
+    SUB A, 20
+    MOV (var_inicio_grua_Y), A
+
+    _cr_hard_top_limit:
+    MOV A, (var_total_score)
+    MOV (var_last_threshold), A
+    //JMP _cr_hard_top_limit
+    _cr_dont_increase_speed:
+    JMP ronda

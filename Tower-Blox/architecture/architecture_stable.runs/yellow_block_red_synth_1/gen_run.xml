@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="yellow_block_red_synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1731768394">
+  <File Type="RDS-DCP" Name="yellow_block_red.dcp"/>
+  <File Type="PA-TCL" Name="yellow_block_red.tcl"/>
+  <File Type="REPORTS-TCL" Name="yellow_block_red_reports.tcl"/>
+  <File Type="RDS-RDS" Name="yellow_block_red.vds"/>
+  <File Type="RDS-UTIL-PB" Name="yellow_block_red_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="yellow_block_red_utilization_synth.rpt"/>
+  <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/yellow_block_red">
+    <File Path="$PSRCDIR/sources_1/ip/yellow_block_red/yellow_block_red.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="yellow_block_red"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="BlockSrcs" RelSrcDir="$PSRCDIR/yellow_block_red">
+    <File Path="$PSRCDIR/sources_1/ip/yellow_block_red/yellow_block_red.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="yellow_block_red"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+</GenRun>
