@@ -60,5 +60,5 @@ This game is a build-a-tower game where a block is moving constantly in the scre
 This WIP is based in the classic [Space Invaders](https://en.wikipedia.org/wiki/Space_Invaders). You have a spaceship that moves and can shoot spatial ammo into a group of enemy ships, the mission is to destroy them all.
 
 <div align="center">
-<img src="Su-Invaders/resources/su_invaders.gif" width="300">
+<img src="Su-invaders/resources/su_invaders.gif" width="300">
 </div>
