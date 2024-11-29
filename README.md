@@ -14,7 +14,7 @@ The architecture itself is contained in the `.xpr` Vivado project found in the r
 
 This architecture has mapped I/O to the first RAM addresses following this table:
 
-<center>
+<div align="center">
 
 | Address | Associated component | Expected action |
 |---------|----------------------|-----------------|
@@ -27,7 +27,7 @@ This architecture has mapped I/O to the first RAM addresses following this table
 | 6       | microseconds         | Input/read      |
 | 7       | Unconnected          | None            |
 
-</center>
+</div>
 
 ### Assembler
 
@@ -43,22 +43,22 @@ I also provide three different projects with games built on top of this architec
 
 This game challenges you to match the random color shown on the screen by guessing the proper RGB values. To adjust the color you can move the indicated switches of the FPGA board linked to red, green and blue respectively. Each with 4bit depth (a total of 4096 colors). Once you have matched the color, the screen will turn black. To start again, simply turn all the switches down and a new random color will show up on screen.
 
-<center>
+<div align="center">
 <img src="Color-match/color_matching.jpeg" width="300">
-</center>
+</div>
 
 #### Tower-blocks
 
 This game is a build-a-tower game where a block is moving constantly in the screen above a tower. You have to press the down button to let the block fall into the tower, if landed, a new block will appear. The moving block gets progressively faster and moves further away the more times you land a block. This game runs forever.
 
-<center>
+<div align="center">
 <img src="Tower-Blox/resources/tower_blocks.gif" width="300">
-</center>
+</div>
 
 #### Su-Invaders
 
 This WIP is based in the classic [Space Invaders](https://en.wikipedia.org/wiki/Space_Invaders). You have a spaceship that moves and can shoot spatial ammo into a group of enemy ships, the mission is to destroy them all.
 
-<center>
+<div align="center">
 <img src="Su-Invaders/resources/su_invaders.gif" width="300">
-</center>
+</div>
