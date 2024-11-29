@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Thu Nov 14 02:39:12 2024
+# Process ID: 1166839
+# Current directory: /home/claudio/U/24.2/arqui/g21/Entrega-3/especial_fase_2_0/Proyecto Base.runs/name_blue_synth_1
+# Command line: vivado -log name_blue.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source name_blue.tcl
+# Log file: /home/claudio/U/24.2/arqui/g21/Entrega-3/especial_fase_2_0/Proyecto Base.runs/name_blue_synth_1/name_blue.vds
+# Journal file: /home/claudio/U/24.2/arqui/g21/Entrega-3/especial_fase_2_0/Proyecto Base.runs/name_blue_synth_1/vivado.jou
+#-----------------------------------------------------------
+source name_blue.tcl -notrace

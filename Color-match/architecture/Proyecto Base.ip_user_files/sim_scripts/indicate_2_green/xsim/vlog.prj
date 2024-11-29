@@ -1,0 +1,6 @@
+verilog xil_defaultlib  \
+"../../../../Proyecto Base.srcs/sources_1/ip/indicate_2_green/sim/indicate_2_green.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort

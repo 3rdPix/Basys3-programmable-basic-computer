@@ -1,0 +1,2 @@
+pointer_green.v,verilog,xil_defaultlib,../../../../Proyecto Base.srcs/sources_1/ip/pointer_green/sim/pointer_green.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v

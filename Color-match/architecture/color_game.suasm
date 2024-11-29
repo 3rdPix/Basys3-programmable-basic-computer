@@ -1,0 +1,139 @@
+DATA:
+
+; Direcciones I/O reservadas
+leds 		0
+switches 	0
+displays	0
+botones		0
+segundos	0
+milisegundos	0
+microsegundos	0
+LSD		0
+
+;-- Reservas de VGA
+registro_xadiv 0
+registro_currt 0
+
+cambios 0
+turno_actual 1
+ronda_actual 0
+CODE:
+JMP main
+
+;----------------------;
+;                      ;
+; Funciones generales  ;
+;                      ; 
+;----------------------;
+
+raise_exception:
+    ;-- recibe código de excepción en regA y congela el programa
+    MOV (displays), A
+    _still:
+    JMP _still
+
+st_cambio_switches:
+    ;-- Espera a cualquier cambio en el estado de los switches
+    ;-- retorna en regA el nuevo estado
+    MOV A, (switches)
+    _cambio_switches_false:
+    CMP A, (switches)
+    JEQ _cambio_switches_false
+    MOV A, (switches)
+    RET
+
+st_low_switches:
+    ;-- Espera a que los switches estén (todos) en low
+    MOV A, (switches)
+    CMP A, 0
+    JNE st_low_switches
+    RET
+
+fn_revisar_boton:
+    ;-- Recibe en regA el botón a revisar
+    ;-- retorna en regA true o false
+    CMP A, (botones)
+    JNE _revisar_boton_false
+    _rb_safe_loop:
+    MOV A, 0
+    CMP A, (botones)
+    JNE _rb_safe_loop
+    MOV A, 1
+    RET
+    _revisar_boton_false:
+    MOV A, 0
+    RET
+
+fn_encender_leds:
+    ;-- recibe en regA los leds a mostrar
+    MOV (leds), A
+    RET
+
+method_build_random_color:
+    ;-- retorna en regA un color aleatorio
+    MOV A, (microsegundos)
+    SHL A
+    SHL A
+    SHL A
+    SHL A
+    SHL A
+    SHL A
+    ADD A, (microsegundos)
+    AND A, 0b1111001111001111
+    RET
+
+main:
+
+    fase_lanzar_juego:
+
+        _flj_iniciar_turno:
+        ;-- variables de puntaje
+        MOV B, cambios
+        MOV (B), 0
+
+        ;-- pantalla a negro
+        MOV A, 0
+        MOV (registro_xadiv), A
+        MOV (registro_currt), A
+
+        ;-- leds a la izquierda == esperando low switches
+        MOV A, 0xfc00
+        CALL fn_encender_leds
+        ;-- esperemos que bajen los switches
+        CALL st_low_switches
+
+        ;-- selecciona color que debe adivinar
+        CALL method_build_random_color
+        MOV B, A
+        ;-- indicamos con los leds los switches que tienen sentido
+        MOV A, 0b1111001111001111
+        CALL fn_encender_leds
+        MOV A, B
+
+        ;-- comienza turno
+        MOV (registro_xadiv), A
+        MOV A, 0
+        _inGame_buscando:
+        CALL st_cambio_switches
+        INC (cambios)
+        MOV B, (cambios)
+        MOV (displays), B
+        
+        ;-- trampilla para mostrar la respuesta mid game apretando el boton de abajo
+        PUSH A
+        MOV A, 0b10000
+        CALL fn_revisar_boton
+        CMP A, 1
+        JNE _flj_ib_seguir_como_si_nada
+        MOV A, (registro_xadiv)
+        CALL fn_encender_leds
+
+        _flj_ib_seguir_como_si_nada:
+        POP A
+        MOV (registro_currt), A
+        CMP A, (registro_xadiv) //revisar si no interrumpe la escritura
+        JNE _inGame_buscando
+
+        JMP fase_lanzar_juego
+        _stall:
+        JMP _stall

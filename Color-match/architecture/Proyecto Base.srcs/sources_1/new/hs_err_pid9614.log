@@ -1,0 +1,9 @@
+#
+# An unexpected error has occurred (11)
+#
+Stack:
+/home/claudio/apps/vivado/Vivado/2019.2/tps/lnx64/jre9.0.4/lib//server/libjvm.so(+0xb6aadb) [0x7f1f4d16aadb]
+/home/claudio/apps/vivado/Vivado/2019.2/tps/lnx64/jre9.0.4/lib//server/libjvm.so(JVM_handle_linux_signal+0xbb) [0x7f1f4d16fe1b]
+/home/claudio/apps/vivado/Vivado/2019.2/tps/lnx64/jre9.0.4/lib//server/libjvm.so(+0xb647b8) [0x7f1f4d1647b8]
+/lib/x86_64-linux-gnu/libc.so.6(+0x3c050) [0x7f1fa205b050]
+[0x7f1f34e8121e]

@@ -1,0 +1,76 @@
+DATA:
+
+; Direcciones I/O reservadas
+leds 		0
+switches 	0
+displays	0
+botones		0
+segundos	0
+milisegundos	0
+microsegundos	0
+LSD		0
+
+;-- Reservas de VGA
+registro_xadiv 0
+registro_currt 0
+
+// Variables de programa
+estado_switches 0
+cambios 0
+color_objetivo 0x80a1 // de momento lo hardcordearemos
+CODE:
+JMP main
+
+;-- primero probemos si funciona xd
+;-- mas o menos lo hace? xd
+;-- seguimos teniendo lineas extrañas, pero implementaremos la mecánica
+;-- que nos permitirá actualizar el color del jugador con el movimiento de
+;-- los switches
+;-- los comentarios anteriores hacían referencia a problemas en vivado xD...
+;-- el programa aquí funciona sin problemas
+
+st_detectar_cambio_switches:
+    MOV B, (estado_switches)
+    MOV A, (switches)
+    CMP A, B
+    JEQ st_detectar_cambio_switches
+    MOV (estado_switches), A
+    RET
+
+st_esperar_ceros:
+    MOV A, 0
+    MOV B, (switches)
+    CMP A, B
+    JNE st_esperar_ceros
+    MOV (estado_switches), A
+    RET
+
+main:
+
+// pasito para que la partida comience desde los switches bajos
+CALL st_esperar_ceros
+
+// Cargamos color por defecto
+MOV A, (color_objetivo)
+MOV (registro_xadiv), A
+
+_update_color:
+CALL st_detectar_cambio_switches
+INC (cambios)
+MOV B, (cambios)
+MOV (displays), B
+MOV A, (estado_switches)
+MOV (registro_currt), A
+
+;-- verificamos si ya llegó
+MOV A, (color_objetivo)
+MOV B, (estado_switches)
+CMP A, B
+JEQ _finish_game
+JMP _update_color
+
+_finish_game:
+MOV A, 0xffff
+MOV (leds), A
+stand_by:
+JMP stand_by
