@@ -1,0 +1,704 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Sat Nov 16 05:22:35 2024
+# Process ID: 138082
+# Current directory: /home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.runs/synth_1
+# Command line: vivado -log Basys3.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Basys3.tcl
+# Log file: /home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.runs/synth_1/Basys3.vds
+# Journal file: /home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source Basys3.tcl -notrace
+Command: synth_design -top Basys3 -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 138114 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1779.590 ; gain = 201.719 ; free physical = 11540 ; free virtual = 18302
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'Basys3' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:20]
+INFO: [Synth 8-3491] module 'ROM' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_LUT_ROM.vhd:6' bound to instance 'basys3_LUT_ROM' of component 'ROM' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:113]
+INFO: [Synth 8-638] synthesizing module 'ROM' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_LUT_ROM.vhd:17]
+INFO: [Synth 8-256] done synthesizing module 'ROM' (1#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_LUT_ROM.vhd:17]
+INFO: [Synth 8-3491] module 'RAM' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_LUT_RAM.vhd:6' bound to instance 'basys3_LUT_RAM' of component 'RAM' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:121]
+INFO: [Synth 8-638] synthesizing module 'RAM' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_LUT_RAM.vhd:16]
+INFO: [Synth 8-256] done synthesizing module 'RAM' (2#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_LUT_RAM.vhd:16]
+INFO: [Synth 8-3491] module 'Clock_Divider' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_Clock_Divider.vhd:5' bound to instance 'basys3_Clock_Divider' of component 'Clock_Divider' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:128]
+INFO: [Synth 8-638] synthesizing module 'Clock_Divider' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_Clock_Divider.vhd:11]
+INFO: [Synth 8-256] done synthesizing module 'Clock_Divider' (3#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_Clock_Divider.vhd:11]
+INFO: [Synth 8-3491] module 'Programmer' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_Programmer.vhd:4' bound to instance 'basys3_Programmer' of component 'Programmer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:133]
+INFO: [Synth 8-638] synthesizing module 'Programmer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_Programmer.vhd:15]
+INFO: [Synth 8-3491] module 'UART' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/uart.vhd:11' bound to instance 'inst_UART' of component 'UART' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_Programmer.vhd:116]
+INFO: [Synth 8-638] synthesizing module 'UART' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/uart.vhd:37]
+	Parameter DIVISOR bound to: 54 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'UART' (4#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/uart.vhd:37]
+INFO: [Synth 8-256] done synthesizing module 'Programmer' (5#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_Programmer.vhd:15]
+INFO: [Synth 8-3491] module 'CPU' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:6' bound to instance 'basys3_CPU' of component 'CPU' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:143]
+INFO: [Synth 8-638] synthesizing module 'CPU' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:17]
+INFO: [Synth 8-3491] module 'RegContPC' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/program_counter.vhd:5' bound to instance 'instancia_PC' of component 'RegContPC' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:176]
+INFO: [Synth 8-638] synthesizing module 'RegContPC' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/program_counter.vhd:16]
+INFO: [Synth 8-256] done synthesizing module 'RegContPC' (6#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/program_counter.vhd:16]
+INFO: [Synth 8-3491] module 'Reg' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_16b_register.vhd:5' bound to instance 'instancia_regA' of component 'Reg' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:186]
+INFO: [Synth 8-638] synthesizing module 'Reg' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_16b_register.vhd:15]
+INFO: [Synth 8-256] done synthesizing module 'Reg' (7#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_16b_register.vhd:15]
+INFO: [Synth 8-3491] module 'Reg' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_16b_register.vhd:5' bound to instance 'instancia_regB' of component 'Reg' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:196]
+INFO: [Synth 8-3491] module 'ALU' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/arithmetic_logic_unit.vhd:4' bound to instance 'instancia_ALU' of component 'ALU' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:206]
+INFO: [Synth 8-638] synthesizing module 'ALU' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/arithmetic_logic_unit.vhd:14]
+INFO: [Synth 8-3491] module 'Adder16' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:4' bound to instance 'inst_sum' of component 'Adder16' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/arithmetic_logic_unit.vhd:59]
+INFO: [Synth 8-638] synthesizing module 'Adder16' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:12]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA0' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:26]
+INFO: [Synth 8-638] synthesizing module 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:12]
+INFO: [Synth 8-3491] module 'HA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/half_adder_1b.vhd:5' bound to instance 'inst_HA' of component 'HA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:29]
+INFO: [Synth 8-638] synthesizing module 'HA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/half_adder_1b.vhd:12]
+INFO: [Synth 8-256] done synthesizing module 'HA' (8#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/half_adder_1b.vhd:12]
+INFO: [Synth 8-3491] module 'HA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/half_adder_1b.vhd:5' bound to instance 'inst_HA2' of component 'HA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:36]
+INFO: [Synth 8-256] done synthesizing module 'FA' (9#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:12]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA1' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:34]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA2' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:42]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA3' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:50]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA4' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:58]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA5' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:66]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA6' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:74]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA7' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:81]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA8' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:88]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA9' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:95]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA10' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:102]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA11' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:109]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA12' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:116]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA13' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:123]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA14' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:130]
+INFO: [Synth 8-3491] module 'FA' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/full_adder_1b.vhd:4' bound to instance 'inst_FA15' of component 'FA' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:138]
+INFO: [Synth 8-256] done synthesizing module 'Adder16' (10#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:12]
+INFO: [Synth 8-256] done synthesizing module 'ALU' (11#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/arithmetic_logic_unit.vhd:14]
+INFO: [Synth 8-3491] module 'Multiplexor' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_4t1_multiplexor.vhd:6' bound to instance 'instancia_muxA' of component 'Multiplexor' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:216]
+INFO: [Synth 8-638] synthesizing module 'Multiplexor' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_4t1_multiplexor.vhd:15]
+INFO: [Synth 8-256] done synthesizing module 'Multiplexor' (12#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_4t1_multiplexor.vhd:15]
+INFO: [Synth 8-3491] module 'Multiplexor' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_4t1_multiplexor.vhd:6' bound to instance 'instancia_muxB' of component 'Multiplexor' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:226]
+INFO: [Synth 8-3491] module 'CU' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/control_unit.vhd:25' bound to instance 'instancia_CU' of component 'CU' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:235]
+INFO: [Synth 8-638] synthesizing module 'CU' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/control_unit.vhd:43]
+INFO: [Synth 8-256] done synthesizing module 'CU' (13#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/control_unit.vhd:43]
+INFO: [Synth 8-3491] module 'RegStatus' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/register_status.vhd:5' bound to instance 'instancia_regStatus' of component 'RegStatus' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:252]
+INFO: [Synth 8-638] synthesizing module 'RegStatus' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/register_status.vhd:17]
+INFO: [Synth 8-256] done synthesizing module 'RegStatus' (14#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/register_status.vhd:17]
+INFO: [Synth 8-3491] module 'AdderDataIn' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/special_adder_sp_to_ram.vhd:34' bound to instance 'instancia_adderData' of component 'AdderDataIn' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:265]
+INFO: [Synth 8-638] synthesizing module 'AdderDataIn' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/special_adder_sp_to_ram.vhd:40]
+INFO: [Synth 8-3491] module 'Adder16' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/adder_16b.vhd:4' bound to instance 'inst_sum' of component 'Adder16' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/special_adder_sp_to_ram.vhd:60]
+INFO: [Synth 8-256] done synthesizing module 'AdderDataIn' (15#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/special_adder_sp_to_ram.vhd:40]
+INFO: [Synth 8-3491] module 'RegSP' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/stack_pointer.vhd:5' bound to instance 'instancia_sp' of component 'RegSP' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:271]
+INFO: [Synth 8-638] synthesizing module 'RegSP' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/stack_pointer.vhd:13]
+WARNING: [Synth 8-614] signal 'clear' is read in the process but is not in the sensitivity list [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/stack_pointer.vhd:19]
+INFO: [Synth 8-256] done synthesizing module 'RegSP' (16#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/stack_pointer.vhd:13]
+INFO: [Synth 8-3491] module 'MuxAddrs' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/address_multiplexor.vhd:4' bound to instance 'instancia_muxAddrs' of component 'MuxAddrs' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:279]
+INFO: [Synth 8-638] synthesizing module 'MuxAddrs' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/address_multiplexor.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'MuxAddrs' (17#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/address_multiplexor.vhd:13]
+INFO: [Synth 8-3491] module 'MuxPC' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/program_counter_multiplexor.vhd:4' bound to instance 'instancia_muxPC' of component 'MuxPC' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:288]
+INFO: [Synth 8-638] synthesizing module 'MuxPC' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/program_counter_multiplexor.vhd:11]
+INFO: [Synth 8-256] done synthesizing module 'MuxPC' (18#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/program_counter_multiplexor.vhd:11]
+INFO: [Synth 8-3491] module 'MuxData' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/data_multiplexor.vhd:4' bound to instance 'instancia_muxdata' of component 'MuxData' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:295]
+INFO: [Synth 8-638] synthesizing module 'MuxData' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/data_multiplexor.vhd:11]
+INFO: [Synth 8-256] done synthesizing module 'MuxData' (19#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/data_multiplexor.vhd:11]
+INFO: [Synth 8-256] done synthesizing module 'CPU' (20#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_CPU.vhd:17]
+INFO: [Synth 8-3491] module 'basicIO_controller' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:4' bound to instance 'basys3_basicIO' of component 'basicIO_controller' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:153]
+INFO: [Synth 8-638] synthesizing module 'basicIO_controller' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:20]
+INFO: [Synth 8-3491] module 'Debouncer' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/button_debouncer.vhd:6' bound to instance 'btn_central' of component 'Debouncer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:92]
+INFO: [Synth 8-638] synthesizing module 'Debouncer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/button_debouncer.vhd:12]
+INFO: [Synth 8-256] done synthesizing module 'Debouncer' (21#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/button_debouncer.vhd:12]
+INFO: [Synth 8-3491] module 'Debouncer' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/button_debouncer.vhd:6' bound to instance 'btn_top' of component 'Debouncer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:93]
+INFO: [Synth 8-3491] module 'Debouncer' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/button_debouncer.vhd:6' bound to instance 'btn_left' of component 'Debouncer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:94]
+INFO: [Synth 8-3491] module 'Debouncer' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/button_debouncer.vhd:6' bound to instance 'btn_right' of component 'Debouncer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:95]
+INFO: [Synth 8-3491] module 'Debouncer' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/button_debouncer.vhd:6' bound to instance 'btn_bottom' of component 'Debouncer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:96]
+INFO: [Synth 8-3491] module 'Timer' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Timer.vhd:5' bound to instance 'inst_timer' of component 'Timer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:98]
+INFO: [Synth 8-638] synthesizing module 'Timer' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Timer.vhd:14]
+INFO: [Synth 8-256] done synthesizing module 'Timer' (22#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Timer.vhd:14]
+INFO: [Synth 8-3491] module 'Display_Controller' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Display_Controller.vhd:5' bound to instance 'inst_Display_Controller' of component 'Display_Controller' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:106]
+INFO: [Synth 8-638] synthesizing module 'Display_Controller' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Display_Controller.vhd:17]
+INFO: [Synth 8-256] done synthesizing module 'Display_Controller' (23#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Display_Controller.vhd:17]
+INFO: [Synth 8-3491] module 'Reg' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_16b_register.vhd:5' bound to instance 'inst_regDis' of component 'Reg' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:116]
+INFO: [Synth 8-3491] module 'Reg' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_16b_register.vhd:5' bound to instance 'inst_regLed' of component 'Reg' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:126]
+INFO: [Synth 8-3491] module 'demuxOUTPUT' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/demuxer_output.vhd:4' bound to instance 'inst_demuxoutput' of component 'demuxOUTPUT' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:136]
+INFO: [Synth 8-638] synthesizing module 'demuxOUTPUT' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/demuxer_output.vhd:11]
+WARNING: [Synth 8-6044] Case expression and choice expression width mismatch, Case expression is 12 wide and choice expression is 11 wide [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/demuxer_output.vhd:18]
+WARNING: [Synth 8-6044] Case expression and choice expression width mismatch, Case expression is 12 wide and choice expression is 11 wide [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/demuxer_output.vhd:19]
+INFO: [Synth 8-256] done synthesizing module 'demuxOUTPUT' (24#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/demuxer_output.vhd:11]
+INFO: [Synth 8-3491] module 'muxINPUT' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:4' bound to instance 'inst_muxinput' of component 'muxINPUT' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:143]
+INFO: [Synth 8-638] synthesizing module 'muxINPUT' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:16]
+WARNING: [Synth 8-6044] Case expression and choice expression width mismatch, Case expression is 12 wide and choice expression is 16 wide [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:23]
+WARNING: [Synth 8-6044] Case expression and choice expression width mismatch, Case expression is 12 wide and choice expression is 16 wide [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:24]
+WARNING: [Synth 8-6044] Case expression and choice expression width mismatch, Case expression is 12 wide and choice expression is 16 wide [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:25]
+WARNING: [Synth 8-6044] Case expression and choice expression width mismatch, Case expression is 12 wide and choice expression is 16 wide [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:26]
+WARNING: [Synth 8-6044] Case expression and choice expression width mismatch, Case expression is 12 wide and choice expression is 16 wide [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'muxINPUT' (25#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/muxer_input.vhd:16]
+INFO: [Synth 8-256] done synthesizing module 'basicIO_controller' (26#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_basicIO.vhd:20]
+INFO: [Synth 8-3491] module 'RTX2060' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_RTX2060.vhd:5' bound to instance 'basys3_rtx2060' of component 'RTX2060' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:168]
+INFO: [Synth 8-638] synthesizing module 'RTX2060' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_RTX2060.vhd:15]
+INFO: [Synth 8-3491] module 'clock_halfener' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Clock_Halfener.vhd:4' bound to instance 'instance_clock_halfener' of component 'clock_halfener' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_RTX2060.vhd:37]
+INFO: [Synth 8-638] synthesizing module 'clock_halfener' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Clock_Halfener.vhd:10]
+INFO: [Synth 8-256] done synthesizing module 'clock_halfener' (27#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Clock_Halfener.vhd:10]
+INFO: [Synth 8-3491] module 'Xelor' declared at '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Xelor.vhd:5' bound to instance 'xelorium' of component 'Xelor' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_RTX2060.vhd:41]
+INFO: [Synth 8-638] synthesizing module 'Xelor' [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Xelor.vhd:14]
+INFO: [Synth 8-256] done synthesizing module 'Xelor' (28#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/Xelor.vhd:14]
+WARNING: [Synth 8-614] signal 'valid_area' is read in the process but is not in the sensitivity list [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_RTX2060.vhd:49]
+INFO: [Synth 8-256] done synthesizing module 'RTX2060' (29#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/basys3_RTX2060.vhd:15]
+INFO: [Synth 8-256] done synthesizing module 'Basys3' (30#1) [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/imports/new/Basys3.vhd:20]
+WARNING: [Synth 8-3331] design RTX2060 has unconnected port smol_clock
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[19]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[18]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[17]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[16]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[15]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[14]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[13]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[12]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[11]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[10]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[9]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[8]
+WARNING: [Synth 8-3331] design CU has unconnected port opcode[7]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1843.340 ; gain = 265.469 ; free physical = 11688 ; free virtual = 18463
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1849.277 ; gain = 271.406 ; free physical = 11708 ; free virtual = 18448
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1849.277 ; gain = 271.406 ; free physical = 11708 ; free virtual = 18448
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 1849.277 ; gain = 0.000 ; free physical = 11702 ; free virtual = 18443
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/constrs_1/imports/new/Basys3.xdc]
+Finished Parsing XDC File [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/constrs_1/imports/new/Basys3.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/constrs_1/imports/new/Basys3.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/Basys3_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/Basys3_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2014.090 ; gain = 0.000 ; free physical = 11614 ; free virtual = 18356
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2014.090 ; gain = 0.000 ; free physical = 11614 ; free virtual = 18356
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 2014.090 ; gain = 436.219 ; free physical = 11709 ; free virtual = 18452
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 2014.090 ; gain = 436.219 ; free physical = 11709 ; free virtual = 18452
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 2014.090 ; gain = 436.219 ; free physical = 11709 ; free virtual = 18452
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/program_counter.vhd:27]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/generic_16b_register.vhd:26]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.srcs/sources_1/new/stack_pointer.vhd:24]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 2014.090 ; gain = 436.219 ; free physical = 11698 ; free virtual = 18440
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 2     
+	   2 Input      7 Bit       Adders := 1     
+	   2 Input      6 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 4     
+	   2 Input      3 Bit       Adders := 1     
+	   2 Input      2 Bit       Adders := 1     
++---XORs : 
+	   2 Input     16 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 69    
++---Registers : 
+	               36 Bit    Registers := 1     
+	               32 Bit    Registers := 2     
+	               12 Bit    Registers := 1     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 7     
+	                7 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 4     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 19    
++---Muxes : 
+	   2 Input     36 Bit        Muxes := 1     
+	   4 Input     27 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 3     
+	   4 Input     16 Bit        Muxes := 2     
+	   4 Input     12 Bit        Muxes := 1     
+	   2 Input     12 Bit        Muxes := 2     
+	   2 Input      9 Bit        Muxes := 3     
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      7 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 1     
+	   3 Input      5 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 2     
+	   8 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 3     
+	   3 Input      4 Bit        Muxes := 1     
+	   4 Input      4 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 2     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 33    
+	  10 Input      1 Bit        Muxes := 1     
+	   8 Input      1 Bit        Muxes := 3     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 1     
+	   6 Input      1 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 2     
+	  11 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module Basys3 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     12 Bit        Muxes := 1     
+Module ROM 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     36 Bit        Muxes := 1     
+Module Clock_Divider 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   4 Input     27 Bit        Muxes := 1     
+Module UART 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      6 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 4     
++---Registers : 
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 4     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   2 Input      9 Bit        Muxes := 3     
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 2     
+	   3 Input      4 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 10    
+Module Programmer 
+Detailed RTL Component Info : 
++---Registers : 
+	               36 Bit    Registers := 1     
+	               12 Bit    Registers := 1     
+	                8 Bit    Registers := 6     
+	                5 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
++---Muxes : 
+	   3 Input      5 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 2     
+	   8 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	  10 Input      1 Bit        Muxes := 1     
+	   8 Input      1 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 1     
+	   6 Input      1 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 1     
+Module RegContPC 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 2     
+Module Reg 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 2     
+Module HA 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
+Module ALU 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input     16 Bit         XORs := 1     
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
+Module Multiplexor 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input     16 Bit        Muxes := 1     
+Module CU 
+Detailed RTL Component Info : 
++---Muxes : 
+	  11 Input      1 Bit        Muxes := 1     
+Module RegStatus 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      3 Bit       Adders := 1     
++---Registers : 
+	                3 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
+Module RegSP 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module MuxAddrs 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input     12 Bit        Muxes := 1     
+Module MuxPC 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     12 Bit        Muxes := 1     
+Module MuxData 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 1     
+Module Debouncer 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Registers : 
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module Timer 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      7 Bit       Adders := 1     
++---Registers : 
+	                7 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      7 Bit        Muxes := 1     
+Module Display_Controller 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	                2 Bit    Registers := 1     
++---Muxes : 
+	   4 Input      4 Bit        Muxes := 2     
+Module demuxOUTPUT 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      2 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
+Module muxINPUT 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 1     
+Module clock_halfener 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
+Module Xelor 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 2     
++---Registers : 
+	               32 Bit    Registers := 2     
+	                1 Bit    Registers := 3     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+WARNING: [Synth 8-3331] design RTX2060 has unconnected port smol_clock
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[19]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[18]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[17]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[16]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[15]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[14]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[13]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[12]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[11]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[10]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[9]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[8]
+WARNING: [Synth 8-3331] design CPU has unconnected port rom_dataout[7]
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (\basys3_Programmer/inst_UART/tx_state_reg[bits][8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\basys3_Programmer/state_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\basys3_Programmer/inst_UART/tx_state_reg[fsm_state] )
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][8]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][7]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][7]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][6]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][6]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][5]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][5]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][4]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][4]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][3]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][3]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][2]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][2]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][1]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[nbits][3]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[nbits][0]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[nbits][2]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[nbits][0]'
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[nbits][0]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[nbits][1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\basys3_Programmer/inst_UART/tx_state_reg[nbits][1] )
+INFO: [Synth 8-3886] merging instance 'basys3_Programmer/inst_UART/tx_state_reg[bits][1]' (FDE) to 'basys3_Programmer/inst_UART/tx_state_reg[bits][0]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (\basys3_Programmer/inst_UART/tx_state_reg[bits][0] )
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 2014.090 ; gain = 436.219 ; free physical = 11675 ; free virtual = 18436
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping	Report (see note below)
++------------+---------------------------+-----------+----------------------+------------------+
+|Module Name | RTL Object                | Inference | Size (Depth x Width) | Primitives       | 
++------------+---------------------------+-----------+----------------------+------------------+
+|Basys3      | basys3_LUT_ROM/memory_reg | Implied   | 4 K x 36             | RAM256X1S x 576	 | 
+|Basys3      | basys3_LUT_RAM/memory_reg | Implied   | 4 K x 16             | RAM256X1S x 256	 | 
++------------+---------------------------+-----------+----------------------+------------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:24 . Memory (MB): peak = 2014.090 ; gain = 436.219 ; free physical = 11531 ; free virtual = 18319
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 2051.223 ; gain = 473.352 ; free physical = 11492 ; free virtual = 18275
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping	Report
++------------+---------------------------+-----------+----------------------+------------------+
+|Module Name | RTL Object                | Inference | Size (Depth x Width) | Primitives       | 
++------------+---------------------------+-----------+----------------------+------------------+
+|Basys3      | basys3_LUT_ROM/memory_reg | Implied   | 4 K x 36             | RAM256X1S x 576	 | 
+|Basys3      | basys3_LUT_RAM/memory_reg | Implied   | 4 K x 16             | RAM256X1S x 256	 | 
++------------+---------------------------+-----------+----------------------+------------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11489 ; free virtual = 18272
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11492 ; free virtual = 18276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11492 ; free virtual = 18276
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11492 ; free virtual = 18276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11492 ; free virtual = 18276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11492 ; free virtual = 18276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11492 ; free virtual = 18276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |BUFG      |     4|
+|2     |CARRY4    |   119|
+|3     |LUT1      |    24|
+|4     |LUT2      |   285|
+|5     |LUT3      |   194|
+|6     |LUT4      |    80|
+|7     |LUT5      |   110|
+|8     |LUT6      |   404|
+|9     |MUXF7     |    69|
+|10    |MUXF8     |    20|
+|11    |RAM256X1S |   624|
+|12    |FDCE      |   131|
+|13    |FDPE      |    13|
+|14    |FDRE      |   305|
+|15    |IBUF      |    23|
+|16    |OBUF      |    43|
++------+----------+------+
+
+Report Instance Areas: 
++------+----------------------------+-------------------+------+
+|      |Instance                    |Module             |Cells |
++------+----------------------------+-------------------+------+
+|1     |top                         |                   |  2448|
+|2     |  basys3_LUT_RAM            |RAM                |   368|
+|3     |  basys3_CPU                |CPU                |   161|
+|4     |    instancia_PC            |RegContPC          |    48|
+|5     |    instancia_regA          |Reg_5              |    80|
+|6     |    instancia_regB          |Reg_6              |    18|
+|7     |    instancia_regStatus     |RegStatus          |     3|
+|8     |    instancia_sp            |RegSP              |    12|
+|9     |  basys3_Clock_Divider      |Clock_Divider      |    67|
+|10    |  basys3_LUT_ROM            |ROM                |   876|
+|11    |  basys3_Programmer         |Programmer         |   245|
+|12    |    inst_UART               |UART               |    66|
+|13    |  basys3_basicIO            |basicIO_controller |   363|
+|14    |    btn_bottom              |Debouncer          |    28|
+|15    |    btn_central             |Debouncer_0        |    28|
+|16    |    btn_left                |Debouncer_1        |    28|
+|17    |    btn_right               |Debouncer_2        |    28|
+|18    |    btn_top                 |Debouncer_3        |    28|
+|19    |    inst_Display_Controller |Display_Controller |    33|
+|20    |    inst_regDis             |Reg                |    32|
+|21    |    inst_regLed             |Reg_4              |    21|
+|22    |    inst_timer              |Timer              |   137|
+|23    |  basys3_rtx2060            |RTX2060            |   298|
+|24    |    instance_clock_halfener |clock_halfener     |     2|
+|25    |    xelorium                |Xelor              |   296|
++------+----------------------------+-------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.230 ; gain = 481.359 ; free physical = 11492 ; free virtual = 18276
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 14 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 2059.230 ; gain = 316.547 ; free physical = 11546 ; free virtual = 18330
+Synthesis Optimization Complete : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 2059.238 ; gain = 481.359 ; free physical = 11546 ; free virtual = 18330
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2059.238 ; gain = 0.000 ; free physical = 11643 ; free virtual = 18427
+INFO: [Netlist 29-17] Analyzing 832 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2091.246 ; gain = 0.000 ; free physical = 11587 ; free virtual = 18369
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 624 instances were transformed.
+  RAM256X1S => RAM256X1S (MUXF7(x2), MUXF8, RAMS64E(x4)): 624 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+145 Infos, 37 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:41 . Memory (MB): peak = 2091.246 ; gain = 654.742 ; free physical = 11753 ; free virtual = 18535
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2091.246 ; gain = 0.000 ; free physical = 11753 ; free virtual = 18535
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint '/home/claudio/U/24.2/arqui/g21/Entrega-3/architecture_stable/architecture_stable.runs/synth_1/Basys3.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file Basys3_utilization_synth.rpt -pb Basys3_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sat Nov 16 05:23:21 2024...
