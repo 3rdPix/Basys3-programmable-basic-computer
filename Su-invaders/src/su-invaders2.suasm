@@ -1,0 +1,375 @@
+DATA:
+
+; Direcciones I/O reservadas
+leds 		0
+switches 	0
+displays	0
+botones		0
+segundos	0
+milisegundos	0
+microsegundos	0
+LSD		0
+
+;-- Reservas de VGA
+nave_amarilla_1_x 0
+nave_amarilla_1_y 0
+nave_amarilla_2_x 0 
+nave_amarilla_2_y 0
+nave_amarilla_3_x 0
+nave_amarilla_3_y 0
+nave_amarilla_4_x 0
+nave_amarilla_4_y 0
+nave_amarilla_5_x 0
+nave_amarilla_5_y 0
+nave_azul_1_x 0
+nave_azul_1_y 0
+nave_azul_2_x 0
+nave_azul_2_y 0
+nave_azul_3_x 0
+nave_azul_3_y 0
+nave_azul_4_x 0
+nave_azul_4_y 0
+nave_azul_5_x 0
+nave_azul_5_y 0
+nave_principal_x 0
+nave_principal_y 0
+good_ammo_1_x 0
+good_ammo_1_y 0
+good_ammo_2_x 0
+good_ammo_2_y 0
+good_ammo_3_x 0
+good_ammo_3_y 0
+
+;----------------------------------------------
+;-- Parámetros del juego
+;--     Estos no deben ser modificados. Se usan
+;--     para restablecer los valores al inicio
+;--     de cada partida o cada ronda según
+;--     corresponda. Todos comienzan con "def".
+;--     Se asume que estos valores NO serán
+;--     modificados durante la ejecución del
+;--     programa.
+;----------------------------------------------
+def_game_tick 20 // maincrah
+def_naves_min_x 50
+def_naves_max_x 700
+def_linea_enemigos_1_y 150
+def_linea_enemigos_2_y 200
+def_distancia_entre_naves 50
+def_nave_principal_min_y 400
+def_nave_principal_max_y 510
+def_nave_principal_mov_speed 6
+def_nave_enemiga_mov_speed 2
+def_direction_right 0
+def_direction_left 1
+def_nave_principal_width 69
+def_nave_principal_height 90
+def_good_ammo_speed 8
+def_good_ammo_width 10
+def_good_ammo_height 10
+def_desfase_de_colision_vertical 30
+def_desfase_de_colision_horizontal 20
+;----------------------------------------------
+;-- Variables de juego
+;--     Estas son variables que pueden cambiar
+;--     durante la ejecución.
+;----------------------------------------------
+var_marca_temporal 0
+var_direction 0
+var_nave_enemiga_mas_a_la_derecha 0
+var_nave_enemiga_mas_a_la_izquierda 0
+// de momento uso esto para contar las naves faltantes¿?
+var_total_score 0
+
+;----------------------------------------------
+;-- Volátiles
+;--     Estas son variables temporales que
+;--     pueden cambiar con subrutinas. Si
+;--     necesitas espacio puedes usar estas
+;--     pero asegurando y entendiendo que
+;--     si le das el paso a otro método
+;--     el valor cambiará. Son registros.
+;----------------------------------------------
+tmp_1 0
+tmp_2 0
+tmp_3 0
+
+;----------------------------------------------
+;-- Listas dinámicas
+;--     Las listas dinámicas son todos los
+;--     conjuntos de datos de longitud variable
+;--     que deben ser accedidos a través de
+;--     offsets.
+;--     Si se agregan valores directos con
+;--     se puede asumir que no cambiarán su
+;-- posición
+;----------------------------------------------
+dyn_nave_amarilla 1, 800, 0, 1, 800, 0, 1, 800, 0, 1, 800, 0, 1, 800, 0
+dyn_nave_azul 1, 800, 0, 1, 800, 0, 1, 800, 0, 1, 800, 0, 1, 800, 0
+dyn_good_ammo 0, 800, 0, 0, 800, 0, 0, 800, 0
+dyn_linea_1 0, 0, 0, 0, 0
+dyn_linea_2 0, 0, 0, 0, 0
+dynamic 0
+
+CODE:
+JMP main
+
+;--------------------------;
+;       FUNCIONES          ;
+;   Las funciones deberían ;
+;   ser igual en cualquier ;
+;   programa.              ;
+;--------------------------;
+
+fn_revisar_boton_no_safe:
+    ;-- Recibe en regA el botón a revisar
+    ;-- retorna en regA true o false
+    CMP A, (botones)
+    JNE _rbns_false
+    MOV A, 1
+    RET
+    _rbns_false:
+    MOV A, 0
+    RET
+
+fn_revisar_boton:
+    ;-- Recibe en regA el botón a revisar
+    ;-- retorna en regA true o false
+    CMP A, (botones)
+    JNE _revisar_boton_false
+    _rb_safe_loop:
+    MOV A, 0
+    CMP A, (botones)
+    JNE _rb_safe_loop
+    MOV A, 1
+    RET
+    _revisar_boton_false:
+    MOV A, 0
+    RET
+
+;--------------------------;
+;         MÉTODOS          ;
+;   Los métodos son cosas  ;
+;   específicas de este    ;
+;   programa.              ;
+;--------------------------;
+
+meth_mov_naves_enemigas_right:
+    _mnel_end:
+    RET
+
+meth_mov_naves_enemigas_left:
+    _mnel_end:
+    RET
+
+meth_obtener_good_ammo_disponible:
+    _mogav_none:
+    MOV A, 0
+    RET
+
+meth_mov_good_ammo:
+    _mmga_end:
+    RET
+
+meth_collition_check_v2:
+    ;-- recibe  en regA la dirección de una munición (su coordenada X)
+    ;-- se asume que está viva
+    ;-- retorna en regA si hay o no hay colisión
+    ;-- si hubo colisión, retorna en regB la dirección
+    RET
+
+meth_collition_check_horizontal:
+    ;-- recibe en regA la dirección de la municiónX a revisar
+    _cch_none:
+        MOV A, 0
+        RET
+    
+meth_collition_check_vertical:
+    ;-- recibe en regA la dirección de la municiónY a revisar
+    _ccv_none:
+        MOV A, 0
+        RET
+
+meth_determinar_mas_a_la_izquierda:
+    _dmli_end:
+    RET
+
+meth_determinar_mas_a_la_derecha:
+    _dmld_end:
+    RET
+;--------------------------;
+; Jueguito                 ;
+;--------------------------;
+main:
+
+posiciones_iniciales:
+    MOV A, dyn_nave_amarilla
+    ADD A, 2
+    MOV B, A
+    MOV A, (def_linea_enemigos_1_y)
+    MOV (B), A
+    PUSH A
+    MOV A, B
+    ADD A, 3
+    MOV B, A
+    POP A
+    MOV (B), A
+    
+    
+
+begin_game_tick:
+    MOV A, (milisegundos)
+    MOV (var_marca_temporal), A
+    _gt_lock:
+    MOV A, (milisegundos)
+    CMP A, (var_marca_temporal)
+    JGE _gt_no_wrap
+    ADD A, 1000
+    _gt_no_wrap:
+    SUB A, (var_marca_temporal)
+    CMP A, (def_game_tick)
+    JLT _gt_lock
+end_game_tick:
+
+begin_movimiento_nave_principal:
+    _mnp_revisar_mover_derecha:
+    MOV A, 0b1000
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE _mnp_revisar_mover_izquierda
+    MOV A, (nave_principal_x)
+    CMP A, (def_naves_max_x)
+    JGE _mnp_revisar_mover_izquierda
+    MOV A, (nave_principal_x)
+    ADD A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_x), A
+    JMP end_movimiento_nave_principal
+
+    _mnp_revisar_mover_izquierda:
+    MOV A, 0b100
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE _mnp_revisar_mover_arriba
+    MOV A, (nave_principal_x)
+    CMP A, (def_naves_min_x)
+    JLE _mnp_revisar_mover_arriba
+    MOV A, (nave_principal_x)
+    SUB A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_x), A
+    JMP end_movimiento_nave_principal
+
+    _mnp_revisar_mover_arriba:
+    MOV A, 0b10
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE _mnp_revisar_mover_abajo
+    MOV A, (nave_principal_y)
+    CMP A, (def_nave_principal_min_y)
+    JLE _mnp_revisar_mover_abajo
+    MOV A, (nave_principal_y)
+    SUB A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_y), A
+    JMP end_movimiento_nave_principal
+
+    _mnp_revisar_mover_abajo:
+    MOV A, 0b10000
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE end_movimiento_nave_principal
+    MOV A, (nave_principal_y)
+    CMP A, (def_nave_principal_max_y)
+    JGE end_movimiento_nave_principal
+    MOV A, (nave_principal_y)
+    ADD A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_y), A
+end_movimiento_nave_principal:
+
+begin_movimiento_automatico_naves_enemigas:
+    _mane_check_direction:
+    MOV A, (var_direction)
+    CMP A, (def_direction_right)
+    JNE _mane_move_left
+    
+    _mane_move_right:
+    CALL meth_mov_naves_enemigas_right
+
+    ;-- revisar si cambiamos de dirección
+    MOV A, (var_nave_enemiga_mas_a_la_derecha)
+    MOV B, A
+    MOV A, (B)
+    CMP A, (def_naves_max_x)
+    JLT end_movimiento_automatico_naves_enemigas
+    MOV A, (def_direction_left)
+    MOV (var_direction), A
+    JMP end_movimiento_automatico_naves_enemigas
+
+    _mane_move_left:
+    CALL meth_mov_naves_enemigas_left
+
+    ;-- revisar si cambiamos de dirección
+    MOV A, (var_nave_enemiga_mas_a_la_izquierda)
+    MOV B, A
+    MOV A, (B)
+    CMP A, (def_naves_min_x)
+    JGT end_movimiento_automatico_naves_enemigas
+    MOV A, (def_direction_right)
+    MOV (var_direction), A
+end_movimiento_automatico_naves_enemigas:
+
+begin_disparo_good_ammo:
+    MOV A, 0b1
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE end_disparo_good_ammo
+    CALL meth_obtener_good_ammo_disponible
+    CMP A, 0
+    JEQ end_disparo_good_ammo
+
+    MOV B, A
+    MOV A, (def_nave_principal_width)
+    SHR A
+    ADD A, (nave_principal_x)
+    MOV (B), A
+    INC B
+    MOV A, (nave_principal_y)
+    SUB A, (def_good_ammo_height)
+    MOV (B), A
+
+end_disparo_good_ammo:
+
+begin_movimiento_good_ammo:
+    // probemos el disparo con el infinito
+    CALL meth_mov_good_ammo
+end_movimiento_good_ammo:
+
+// begin_revisar_colision:
+//     // Tiene sentido horizontal?
+//     MOV A, good_ammo_1_x
+//     CALL meth_collition_check_horizontal
+//     CMP A, 0
+//     JEQ end_revisar_colision
+//     MOV A, good_ammo_1_y
+//     CALL meth_collition_check_vertical
+//     CMP A, 0
+//     JEQ end_revisar_colision
+//     INC (var_total_score)
+//     MOV A, (var_total_score)
+//     MOV (displays), A
+//     MOV A, 800
+//     MOV (good_ammo_1_x), A
+//     MOV A, 0
+//     MOV (var_good_ammo_1_viva), A
+//     CALL meth_determinar_mas_a_la_izquierda
+//     CALL meth_determinar_mas_a_la_derecha
+// end_revisar_colision:
+
+// begin_revisar_todos_muertos:
+//     MOV A, (var_total_score)
+//     CMP A, 10
+//     JEQ fase_2
+// end_revisar_todos_muertos:
+
+JMP begin_game_tick
+
+fase_2:
+JMP fase_2

@@ -1,0 +1,141 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.std_logic_unsigned.all;
+use IEEE.NUMERIC_STD.ALL;
+
+entity nave_amarilla_sprite is Port(
+    -- generales de control
+    clock: in std_logic;
+    current_x: in integer;
+    current_y: in integer;
+    pixel_color: out std_logic_vector(11 downto 0);
+    in_a_block: out std_logic;
+    --escritura
+    update_registry: in std_logic;
+    ram_addressed: in std_logic_vector(11 downto 0);
+    ram_receiving: in std_logic_vector(15 downto 0));
+    end nave_amarilla_sprite;
+
+architecture Behavioral of nave_amarilla_sprite is
+
+----------------------------------------
+--          DATA & CONTROL            --
+----------------------------------------
+-- refs
+constant o_width: integer := 30;
+constant o_height: integer := 35;
+-- addss
+constant Ax1: std_logic_vector(11 downto 0) := "000000001000";
+constant Ay1: std_logic_vector(11 downto 0) := "000000001001";
+constant Ax2: std_logic_vector(11 downto 0) := "000000001010";
+constant Ay2: std_logic_vector(11 downto 0) := "000000001011";
+constant Ax3: std_logic_vector(11 downto 0) := "000000001100";
+constant Ay3: std_logic_vector(11 downto 0) := "000000001101";
+constant Ax4: std_logic_vector(11 downto 0) := "000000001110";
+constant Ay4: std_logic_vector(11 downto 0) := "000000001111";
+constant Ax5: std_logic_vector(11 downto 0) := "000000010000";
+constant Ay5: std_logic_vector(11 downto 0) := "000000010001";
+-- regs""
+signal x1: integer := 800;
+signal y1: integer := 0;
+signal x2: integer := 800;
+signal y2: integer := 0;
+signal x3: integer := 800;
+signal y3: integer := 0;
+signal x4: integer := 800;
+signal y4: integer := 0;
+signal x5: integer := 800;
+signal y5: integer := 0;
+
+----------------------------------------
+--               FLUX                 --
+----------------------------------------
+signal out_in_a_block: std_logic;
+
+signal inter_read_address: std_logic_vector(10 downto 0) := (others => '0');
+signal inter_red_color: std_logic_vector(3 downto 0);
+signal inter_green_color: std_logic_vector(3 downto 0);
+signal inter_blue_color: std_logic_vector(3 downto 0);
+signal inter_pixel: std_logic_vector(11 downto 0);
+component nave_amarilla_rom is Port(
+    clock: in std_logic;
+    addr: in std_logic_vector(10 downto 0);
+    red_color: out std_logic_vector(3 downto 0);
+    green_color: out std_logic_vector(3 downto 0);
+    blue_color: out std_logic_vector(3 downto 0));
+    end component;
+
+begin
+
+block_pixels: nave_amarilla_rom port map(
+    clock=>clock,
+    addr=>inter_read_address,
+    red_color=>inter_red_color,
+    green_color=>inter_green_color,
+    blue_color=>inter_blue_color);
+
+carga_posiciones: process (clock, update_registry) begin
+    if rising_edge(clock) then
+    if update_registry = '1' then
+        if ram_addressed = Ax1 then
+            x1 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ay1 then
+            y1 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ax2 then
+            x2 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ay2 then
+            y2 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ax3 then
+            x3 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ay3 then
+            y3 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ax4 then
+            x4 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ay4 then
+            y4 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ax5 then
+            x5 <= to_integer(unsigned(ram_receiving));
+        elsif ram_addressed = Ay5 then
+            y5 <= to_integer(unsigned(ram_receiving));
+        end if;
+    end if;
+    end if;
+end process;
+
+deteccion_color: process (clock) begin
+    if rising_edge(clock) then
+        if (current_x  >= x1 - 4 ) and (current_x  < x1 + o_width - 4 ) and
+        (current_y >= y1) and (current_y < y1 + o_height) then
+            out_in_a_block <= '1';
+            inter_read_address <= std_logic_vector(to_unsigned((current_x+4 - x1) + ((current_y - y1) * o_width), 11));
+        
+        elsif (current_x  >= x2 - 4 ) and (current_x  < x2 + o_width - 4 ) and
+        (current_y >= y2) and (current_y < y2 + o_height) then
+            out_in_a_block <= '1';
+            inter_read_address <= std_logic_vector(to_unsigned((current_x+4 - x2) + ((current_y - y2) * o_width), 11));
+        
+        elsif (current_x  >= x3 - 4 ) and (current_x  < x3 + o_width - 4 ) and
+        (current_y >= y3) and (current_y < y3 + o_height) then
+            out_in_a_block <= '1';
+            inter_read_address <= std_logic_vector(to_unsigned((current_x+4 - x3) + ((current_y - y3) * o_width), 11));
+        
+        elsif (current_x  >= x4 - 4 ) and (current_x  < x4 + o_width - 4 ) and
+        (current_y >= y4) and (current_y < y4 + o_height) then
+            out_in_a_block <= '1';
+            inter_read_address <= std_logic_vector(to_unsigned((current_x+4 - x4) + ((current_y - y4) * o_width), 11));
+        
+        elsif (current_x  >= x5 - 4 ) and (current_x  < x5 + o_width - 4 ) and
+        (current_y >= y5) and (current_y < y5 + o_height) then
+            out_in_a_block <= '1';
+            inter_read_address <= std_logic_vector(to_unsigned((current_x+4 - x5) + ((current_y - y5) * o_width), 11));
+        else
+            out_in_a_block <= '0';
+            inter_read_address <= (others=>'0');
+        end if;
+     end if;
+end process;
+inter_pixel <= inter_red_color & inter_green_color & inter_blue_color; 
+with inter_pixel select in_a_block <=
+    '0' when "010011111110", out_in_a_block when others;
+pixel_color <= inter_pixel;
+end Behavioral;

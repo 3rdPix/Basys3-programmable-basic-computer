@@ -1,0 +1,1053 @@
+DATA:
+
+; Direcciones I/O reservadas
+leds 		0
+switches 	0
+displays	0
+botones		0
+segundos	0
+milisegundos	0
+microsegundos	0
+LSD		0
+
+;-- Reservas de VGA
+nave_amarilla_1_x 800
+nave_amarilla_1_y 0
+nave_amarilla_2_x 800 
+nave_amarilla_2_y 0
+nave_amarilla_3_x 800
+nave_amarilla_3_y 0
+nave_amarilla_4_x 800
+nave_amarilla_4_y 0
+nave_amarilla_5_x 800
+nave_amarilla_5_y 0
+nave_azul_1_x 800
+nave_azul_1_y 0
+nave_azul_2_x 800
+nave_azul_2_y 0
+nave_azul_3_x 800
+nave_azul_3_y 0
+nave_azul_4_x 800
+nave_azul_4_y 0
+nave_azul_5_x 800
+nave_azul_5_y 0
+nave_principal_x 800
+nave_principal_y 0
+good_ammo_1_x 800
+good_ammo_1_y 0
+good_ammo_2_x 800
+good_ammo_2_y 0
+good_ammo_3_x 800
+good_ammo_3_y 0
+
+;----------------------------------------------
+;-- Parámetros del juego
+;--     Estos no deben ser modificados. Se usan
+;--     para restablecer los valores al inicio
+;--     de cada partida o cada ronda según
+;--     corresponda. Todos comienzan con "def".
+;--     Se asume que estos valores NO serán
+;--     modificados durante la ejecución del
+;--     programa.
+;----------------------------------------------
+def_game_tick 20 // maincrah
+def_naves_min_x 50
+def_naves_max_x 700
+def_linea_enemigos_1_y 150
+def_linea_enemigos_2_y 200
+def_linea_enemigos_3_y 300
+def_nave_principal_min_y 400
+def_nave_principal_max_y 510
+def_nave_principal_mov_speed 6
+def_nave_enemiga_mov_speed 2
+def_direction_right 0
+def_direction_left 1
+def_nave_principal_width 69
+def_nave_principal_height 90
+def_good_ammo_speed 8
+def_good_ammo_width 10
+def_good_ammo_height 10
+def_desfase_de_colision_vertical 30
+def_desfase_de_colision_horizontal 20
+;----------------------------------------------
+;-- Variables de juego
+;--     Estas son variables que pueden cambiar
+;--     durante la ejecución.
+;----------------------------------------------
+var_marca_temporal 0
+var_direction 0
+var_nave_enemiga_mas_a_la_derecha 0
+var_nave_enemiga_mas_a_la_izquierda 0
+var_naves_destruidas 0
+var_nave_amarilla_1_viva 1
+var_nave_amarilla_2_viva 1
+var_nave_amarilla_3_viva 1
+var_nave_amarilla_4_viva 1
+var_nave_amarilla_5_viva 1
+var_nave_azul_1_viva 1
+var_nave_azul_2_viva 1
+var_nave_azul_3_viva 1
+var_nave_azul_4_viva 1
+var_nave_azul_5_viva 1
+var_good_ammo_1_viva 0
+var_good_ammo_2_viva 0
+var_good_ammo_3_viva 0
+var_total_score 0
+;----------------------------------------------
+;-- Listas dinámicas
+;--     Las listas dinámicas son todos los
+;--     conjuntos de datos de longitud variable
+;--     que deben ser accedidos a través de
+;--     offsets.
+;----------------------------------------------
+dynamic 0
+
+CODE:
+JMP main
+
+;--------------------------;
+;       FUNCIONES          ;
+;   Las funciones deberían ;
+;   ser igual en cualquier ;
+;   programa.              ;
+;--------------------------;
+
+fn_revisar_boton_no_safe:
+    ;-- Recibe en regA el botón a revisar
+    ;-- retorna en regA true o false
+    CMP A, (botones)
+    JNE _rbns_false
+    MOV A, 1
+    RET
+    _rbns_false:
+    MOV A, 0
+    RET
+
+fn_revisar_boton:
+    ;-- Recibe en regA el botón a revisar
+    ;-- retorna en regA true o false
+    CMP A, (botones)
+    JNE _revisar_boton_false
+    _rb_safe_loop:
+    MOV A, 0
+    CMP A, (botones)
+    JNE _rb_safe_loop
+    MOV A, 1
+    RET
+    _revisar_boton_false:
+    MOV A, 0
+    RET
+
+;--------------------------;
+;         MÉTODOS          ;
+;   Los métodos son cosas  ;
+;   específicas de este    ;
+;   programa.              ;
+;--------------------------;
+
+meth_revisar_boton_con_especial_safe:
+    CMP A, (botones)
+    JNE _rbces_false
+    MOV B, 50
+    MOV A, (milisegundos)
+    MOV (var_marca_temporal), A
+    _rbces_safe_loop:
+    MOV A, (milisegundos)
+    CMP A, (var_marca_temporal)
+    JGE _rbces_no_wrap
+    ADD A, 1000
+    _rbces_no_wrap:
+    SUB A, (var_marca_temporal)
+    CMP A, B
+    JLT _rbces_safe_loop
+    MOV A, 1
+    RET
+    _rbces_false:
+    MOV A, 0
+    RET
+
+meth_mov_naves_enemigas_right:
+    MOV A, (var_nave_amarilla_1_viva)
+    CMP A, 1
+    JNE _mner_ama_2
+    MOV A, (nave_amarilla_1_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_1_x), A
+
+    _mner_ama_2:
+    MOV A, (var_nave_amarilla_2_viva)
+    CMP A, 1
+    JNE _mner_ama_3
+    MOV A, (nave_amarilla_2_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_2_x), A
+
+    _mner_ama_3:
+    MOV A, (var_nave_amarilla_3_viva)
+    CMP A, 1
+    JNE _mner_ama_4
+    MOV A, (nave_amarilla_3_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_3_x), A
+
+    _mner_ama_4:
+    MOV A, (var_nave_amarilla_4_viva)
+    CMP A, 1
+    JNE _mner_ama_5
+    MOV A, (nave_amarilla_4_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_4_x), A
+
+    _mner_ama_5:
+    MOV A, (var_nave_amarilla_5_viva)
+    CMP A, 1
+    JNE _mner_azu_1
+    MOV A, (nave_amarilla_5_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_5_x), A
+
+    _mner_azu_1:
+    MOV A, (var_nave_azul_1_viva)
+    CMP A, 1
+    JNE _mner_azu_2
+    MOV A, (nave_azul_1_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_1_x), A
+
+    _mner_azu_2:
+    MOV A, (var_nave_azul_2_viva)
+    CMP A, 1
+    JNE _mner_azu_3
+    MOV A, (nave_azul_2_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_2_x), A
+
+    _mner_azu_3:
+    MOV A, (var_nave_azul_3_viva)
+    CMP A, 1
+    JNE _mner_azu_4
+    MOV A, (nave_azul_3_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_3_x), A
+
+    _mner_azu_4:
+    MOV A, (var_nave_azul_4_viva)
+    CMP A, 1
+    JNE _mner_azu_5
+    MOV A, (nave_azul_4_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_4_x), A
+
+    _mner_azu_5:
+    MOV A, (var_nave_azul_5_viva)
+    CMP A, 1
+    JNE _mner_end
+    MOV A, (nave_azul_5_x)
+    ADD A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_5_x), A
+
+    _mner_end:
+    RET
+
+meth_mov_naves_enemigas_left:
+    MOV A, (var_nave_amarilla_1_viva)
+    CMP A, 1
+    JNE _mnel_ama_2
+    MOV A, (nave_amarilla_1_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_1_x), A
+
+    _mnel_ama_2:
+    MOV A, (var_nave_amarilla_2_viva)
+    CMP A, 1
+    JNE _mnel_ama_3
+    MOV A, (nave_amarilla_2_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_2_x), A
+
+    _mnel_ama_3:
+    MOV A, (var_nave_amarilla_3_viva)
+    CMP A, 1
+    JNE _mnel_ama_4
+    MOV A, (nave_amarilla_3_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_3_x), A
+
+    _mnel_ama_4:
+    MOV A, (var_nave_amarilla_4_viva)
+    CMP A, 1
+    JNE _mnel_ama_5
+    MOV A, (nave_amarilla_4_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_4_x), A
+
+    _mnel_ama_5:
+    MOV A, (var_nave_amarilla_5_viva)
+    CMP A, 1
+    JNE _mnel_azu_1
+    MOV A, (nave_amarilla_5_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_amarilla_5_x), A
+
+    _mnel_azu_1:
+    MOV A, (var_nave_azul_1_viva)
+    CMP A, 1
+    JNE _mnel_azu_2
+    MOV A, (nave_azul_1_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_1_x), A
+
+    _mnel_azu_2:
+    MOV A, (var_nave_azul_2_viva)
+    CMP A, 1
+    JNE _mnel_azu_3
+    MOV A, (nave_azul_2_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_2_x), A
+
+    _mnel_azu_3:
+    MOV A, (var_nave_azul_3_viva)
+    CMP A, 1
+    JNE _mnel_azu_4
+    MOV A, (nave_azul_3_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_3_x), A
+
+    _mnel_azu_4:
+    MOV A, (var_nave_azul_4_viva)
+    CMP A, 1
+    JNE _mnel_azu_5
+    MOV A, (nave_azul_4_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_4_x), A
+
+    _mnel_azu_5:
+    MOV A, (var_nave_azul_5_viva)
+    CMP A, 1
+    JNE _mnel_end
+    MOV A, (nave_azul_5_x)
+    SUB A, (def_nave_enemiga_mov_speed)
+    MOV (nave_azul_5_x), A
+
+    _mnel_end:
+    RET
+
+meth_obtener_good_ammo_disponible:
+    MOV A, 0
+    NOP
+    CMP A, (var_good_ammo_1_viva)
+    JNE _mogav_check_2
+    INC (var_good_ammo_1_viva)
+    MOV A, good_ammo_1_x
+    RET
+    _mogav_check_2:
+                                            JMP _mogav_none
+    CMP A, (var_good_ammo_2_viva)
+    JNE _mogav_check_3
+    INC (var_good_ammo_2_viva)
+    MOV A, good_ammo_2_x
+    RET
+    _mogav_check_3:
+    CMP A, (var_good_ammo_3_viva)
+    JNE _mogav_none
+    INC (var_good_ammo_3_viva)
+    MOV A, good_ammo_3_x
+    RET
+    _mogav_none:
+    MOV A, 0
+    RET
+
+meth_mov_good_ammo:
+    _mmga_mov_1:
+    MOV A, (var_good_ammo_1_viva)
+    CMP A, 1
+    JNE _mmga_mov_2
+    MOV A, (good_ammo_1_y)
+    SUB A, (def_good_ammo_speed)
+    MOV (good_ammo_1_y), A
+    CMP A, 1024
+    JLT _mmga_mov_2
+    MOV A, 0
+    MOV (var_good_ammo_1_viva), A
+    MOV A, 800
+    MOV (good_ammo_1_x), A
+
+    _mmga_mov_2:
+                                                JMP _mmga_end
+    MOV A, (var_good_ammo_2_viva)
+    CMP A, 1
+    JNE _mmga_mov_3
+    MOV A, (good_ammo_2_y)
+    SUB A, (def_good_ammo_speed)
+    MOV (good_ammo_2_y), A
+    CMP A, 1024
+    JLT _mmga_mov_3
+    MOV A, 0
+    MOV (var_good_ammo_2_viva), A
+    MOV A, 800
+    MOV (good_ammo_2_x), A
+
+    _mmga_mov_3:
+    MOV A, (var_good_ammo_3_viva)
+    CMP A, 1
+    JNE _mmga_end
+    MOV A, (good_ammo_3_y)
+    SUB A, (def_good_ammo_speed)
+    MOV (good_ammo_3_y), A
+    CMP A, 1024
+    JLT _mmga_end
+    MOV A, 0
+    MOV (var_good_ammo_3_viva), A
+    MOV A, 800
+    MOV (good_ammo_3_x), A
+
+    _mmga_end:
+    RET
+
+meth_collition_check_v2:
+    ;-- recibe  en regA la dirección de una munición (su coordenada X)
+    ;-- se asume que está viva
+    ;-- retorna en regA si hay o no hay colisión
+    ;-- si hubo colisión, retorna en regB la dirección
+    RET
+
+meth_collition_check_horizontal:
+    ;-- recibe en regA la dirección de la municiónX a revisar
+    MOV B, A
+    MOV A, (B)
+    MOV B, A
+    _cch_ama_1:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_1_viva)
+        JNE _cch_ama_2
+        MOV A, (nave_amarilla_1_x)
+        CMP A, B
+        JGT _cch_ama_2
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_ama_2
+        MOV A, 1
+        RET
+    _cch_ama_2:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_2_viva)
+        JNE _cch_ama_3
+        MOV A, (nave_amarilla_2_x)
+        CMP A, B
+        JGT _cch_ama_3
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_ama_3
+        MOV A, 1
+        RET
+    _cch_ama_3:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_3_viva)
+        JNE _cch_ama_4
+        MOV A, (nave_amarilla_3_x)
+        CMP A, B
+        JGT _cch_ama_4
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_ama_4
+        MOV A, 1
+        RET
+    _cch_ama_4:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_4_viva)
+        JNE _cch_ama_5
+        MOV A, (nave_amarilla_4_x)
+        CMP A, B
+        JGT _cch_ama_5
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_ama_5
+        MOV A, 1
+        RET
+    _cch_ama_5:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_5_viva)
+        JNE _cch_azu_1
+        MOV A, (nave_amarilla_5_x)
+        CMP A, B
+        JGT _cch_azu_1
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_azu_1
+        MOV A, 1
+        RET
+    _cch_azu_1:
+        MOV A, 1
+        CMP A, (var_nave_azul_1_viva)
+        JNE _cch_azu_2
+        MOV A, (nave_azul_1_x)
+        CMP A, B
+        JGT _cch_azu_2
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_azu_2
+        MOV A, 1
+        RET
+    _cch_azu_2:
+        MOV A, 1
+        CMP A, (var_nave_azul_2_viva)
+        JNE _cch_azu_3
+        MOV A, (nave_azul_2_x)
+        CMP A, B
+        JGT _cch_azu_3
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_azu_3
+        MOV A, 1
+        RET
+    _cch_azu_3:
+        MOV A, 1
+        CMP A, (var_nave_azul_3_viva)
+        JNE _cch_azu_4
+        MOV A, (nave_azul_3_x)
+        CMP A, B
+        JGT _cch_azu_4
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_azu_4
+        MOV A, 1
+        RET
+    _cch_azu_4:
+        MOV A, 1
+        CMP A, (var_nave_azul_4_viva)
+        JNE _cch_azu_5
+        MOV A, (nave_azul_4_x)
+        CMP A, B
+        JGT _cch_azu_5
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_azu_5
+        MOV A, 1
+        RET
+    _cch_azu_5:
+        MOV A, 1
+        CMP A, (var_nave_azul_5_viva)
+        JNE _cch_none
+        MOV A, (nave_azul_5_x)
+        CMP A, B
+        JGT _cch_none
+        ADD A, (def_desfase_de_colision_horizontal)
+        CMP A, B
+        JLT _cch_none
+        MOV A, 1
+        RET
+    _cch_none:
+        MOV A, 0
+        RET
+    
+meth_collition_check_vertical:
+    ;-- recibe en regA la dirección de la municiónY a revisar
+    MOV B, A
+    MOV A, (B)
+    MOV B, A
+    _ccv_ama_1:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_1_viva)
+        JNE _ccv_ama_2
+        MOV A, (nave_amarilla_1_y)
+        CMP A, B
+        JGT _ccv_ama_2
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_ama_2
+        MOV A, 0
+        MOV (var_nave_amarilla_1_viva), A
+        MOV A, 800
+        MOV (nave_amarilla_1_x), A
+        MOV A, 1
+        RET
+    _ccv_ama_2:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_2_viva)
+        JNE _ccv_ama_3
+        MOV A, (nave_amarilla_2_y)
+        CMP A, B
+        JGT _ccv_ama_3
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_ama_3
+        MOV A, 0
+        MOV (var_nave_amarilla_2_viva), A
+        MOV A, 800
+        MOV (nave_amarilla_2_x), A
+        MOV A, 1
+        RET
+    _ccv_ama_3:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_3_viva)
+        JNE _ccv_ama_4
+        MOV A, (nave_amarilla_3_y)
+        CMP A, B
+        JGT _ccv_ama_4
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_ama_4
+        MOV A, 0
+        MOV (var_nave_amarilla_3_viva), A
+        MOV A, 800
+        MOV (nave_amarilla_3_x), A
+        MOV A, 1
+        RET
+    _ccv_ama_4:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_4_viva)
+        JNE _ccv_ama_5
+        MOV A, (nave_amarilla_4_y)
+        CMP A, B
+        JGT _ccv_ama_5
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_ama_5
+        MOV A, 0
+        MOV (var_nave_amarilla_4_viva), A
+        MOV A, 800
+        MOV (nave_amarilla_4_x), A
+        MOV A, 1
+        RET
+    _ccv_ama_5:
+        MOV A, 1
+        CMP A, (var_nave_amarilla_5_viva)
+        JNE _ccv_azu_1
+        MOV A, (nave_amarilla_5_y)
+        CMP A, B
+        JGT _ccv_azu_1
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_azu_1
+        MOV A, 0
+        MOV (var_nave_amarilla_5_viva), A
+        MOV A, 800
+        MOV (nave_amarilla_5_x), A
+        MOV A, 1
+        RET
+    _ccv_azu_1:
+        MOV A, 1
+        CMP A, (var_nave_azul_1_viva)
+        JNE _ccv_azu_2
+        MOV A, (nave_azul_1_y)
+        CMP A, B
+        JGT _ccv_azu_2
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_azu_2
+        MOV A, 0
+        MOV (var_nave_azul_1_viva), A
+        MOV A, 800
+        MOV (nave_azul_1_x), A
+        MOV A, 1
+        RET
+    _ccv_azu_2:
+        MOV A, 1
+        CMP A, (var_nave_azul_2_viva)
+        JNE _ccv_azu_3
+        MOV A, (nave_azul_2_y)
+        CMP A, B
+        JGT _ccv_azu_3
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_azu_3
+        MOV A, 0
+        MOV (var_nave_azul_2_viva), A
+        MOV A, 800
+        MOV (nave_azul_2_x), A
+        MOV A, 1
+        RET
+    _ccv_azu_3:
+        MOV A, 1
+        CMP A, (var_nave_azul_3_viva)
+        JNE _ccv_azu_4
+        MOV A, (nave_azul_3_y)
+        CMP A, B
+        JGT _ccv_azu_4
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_azu_4
+        MOV A, 0
+        MOV (var_nave_azul_3_viva), A
+        MOV A, 800
+        MOV (nave_azul_3_x), A
+        MOV A, 1
+        RET
+    _ccv_azu_4:
+        MOV A, 1
+        CMP A, (var_nave_azul_4_viva)
+        JNE _ccv_azu_5
+        MOV A, (nave_azul_4_y)
+        CMP A, B
+        JGT _ccv_azu_5
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_azu_5
+        MOV A, 0
+        MOV (var_nave_azul_4_viva), A
+        MOV A, 800
+        MOV (nave_azul_4_x), A
+        MOV A, 1
+        RET
+    _ccv_azu_5:
+        MOV A, 1
+        CMP A, (var_nave_azul_5_viva)
+        JNE _ccv_none
+        MOV A, (nave_azul_5_y)
+        CMP A, B
+        JGT _ccv_none
+        ADD A, (def_desfase_de_colision_vertical)
+        CMP A, B
+        JLT _ccv_none
+        MOV A, 0
+        MOV (var_nave_azul_5_viva), A
+        MOV A, 800
+        MOV (nave_azul_5_x), A
+        MOV A, 1
+        RET
+    _ccv_none:
+        MOV A, 0
+        RET
+
+meth_determinar_mas_a_la_izquierda:
+        MOV A, (var_nave_amarilla_1_viva)
+        CMP A, 1
+        JNE _dmli_azu_3
+        MOV A, nave_amarilla_1_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_azu_3:
+        MOV A, (var_nave_azul_3_viva)
+        CMP A, 1
+        JNE _dmli_azu_1
+        MOV A, nave_azul_3_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_azu_1:
+        MOV A, (var_nave_azul_1_viva)
+        CMP A, 1
+        JNE _dmli_ama_4
+        MOV A, nave_azul_1_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_ama_4:
+        MOV A, (var_nave_amarilla_4_viva)
+        CMP A, 1
+        JNE _dmli_ama_2
+        MOV A, nave_amarilla_4_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_ama_2:
+        MOV A, (var_nave_amarilla_2_viva)
+        CMP A, 1
+        JNE _dmli_azu_4
+        MOV A, nave_amarilla_2_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_azu_4:
+        MOV A, (var_nave_azul_4_viva)
+        CMP A, 1
+        JNE _dmli_azu_2
+        MOV A, nave_azul_4_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_azu_2:
+        MOV A, (var_nave_azul_2_viva)
+        CMP A, 1
+        JNE _dmli_ama_5
+        MOV A, nave_azul_2_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_ama_5:
+        MOV A, (var_nave_amarilla_5_viva)
+        CMP A, 1
+        JNE _dmli_ama_3
+        MOV A, nave_amarilla_5_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_ama_3:
+        MOV A, (var_nave_amarilla_3_viva)
+        CMP A, 1
+        JNE _dmli_azu_5
+        MOV A, nave_amarilla_3_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmli_azu_5:
+        MOV A, nave_azul_5_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+    RET
+
+meth_determinar_mas_a_la_derecha:
+        MOV A, (var_nave_amarilla_3_viva)
+        CMP A, 1
+        JNE _dmld_azu_5
+        MOV A, nave_amarilla_3_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_azu_5:
+        MOV A, (var_nave_azul_5_viva)
+        CMP A, 1
+        JNE _dmld_azu_2
+        MOV A, nave_azul_5_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_azu_2:
+        MOV A, (var_nave_azul_2_viva)
+        CMP A, 1
+        JNE _dmld_ama_5
+        MOV A, nave_azul_2_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_ama_5:
+        MOV A, (var_nave_amarilla_5_viva)
+        CMP A, 1
+        JNE _dmld_ama_2
+        MOV A, nave_amarilla_5_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_ama_2:
+        MOV A, (var_nave_amarilla_2_viva)
+        CMP A, 1
+        JNE _dmld_azu_4
+        MOV A, nave_amarilla_2_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_azu_4:
+        MOV A, (var_nave_azul_4_viva)
+        CMP A, 1
+        JNE _dmld_azu_1
+        MOV A, nave_azul_4_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_azu_1:
+        MOV A, (var_nave_azul_1_viva)
+        CMP A, 1
+        JNE _dmld_ama_4
+        MOV A, nave_azul_1_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_ama_4:
+        MOV A, (var_nave_amarilla_4_viva)
+        CMP A, 1
+        JNE _dmld_ama_1
+        MOV A, nave_amarilla_4_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_ama_1:
+        MOV A, (var_nave_amarilla_1_viva)
+        CMP A, 1
+        JNE _dmld_azu_3
+        MOV A, nave_amarilla_1_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+    _dmld_azu_3:
+        MOV A, nave_azul_3_x
+        MOV (var_nave_enemiga_mas_a_la_izquierda), A
+        RET
+;--------------------------;
+; Jueguito                 ;
+;--------------------------;
+main:
+
+posiciones_iniciales:
+    MOV A, (def_linea_enemigos_1_y)
+    MOV (nave_amarilla_1_y), A
+    MOV (nave_amarilla_2_y), A
+    MOV (nave_amarilla_3_y), A
+    MOV (nave_azul_1_y), A
+    MOV (nave_azul_2_y), A
+
+    MOV A, (def_linea_enemigos_2_y)
+    MOV (nave_azul_3_y), A
+    MOV (nave_azul_4_y), A
+    MOV (nave_azul_5_y), A
+    MOV (nave_amarilla_4_y), A
+    MOV (nave_amarilla_5_y), A
+
+    MOV A, (def_nave_principal_min_y)
+    MOV (nave_principal_y), A
+
+    MOV A, (def_naves_min_x)
+
+    ADD A, 200
+    MOV (nave_amarilla_1_x), A
+    MOV (nave_azul_3_x), A
+
+    ADD A, 50
+    MOV (nave_azul_1_x), A
+    MOV (nave_amarilla_4_x), A
+    MOV (nave_principal_x), A
+
+    ADD A, 50
+    MOV (nave_amarilla_2_x), A
+    MOV (nave_azul_4_x), A
+
+    ADD A, 50
+    MOV (nave_azul_2_x), A
+    MOV (nave_amarilla_5_x), A
+
+    ADD A, 50
+    MOV (nave_amarilla_3_x), A
+    MOV (nave_azul_5_x), A
+
+    MOV A, nave_amarilla_3_x
+    MOV (var_nave_enemiga_mas_a_la_derecha), A
+    MOV A, nave_amarilla_1_x
+    MOV (var_nave_enemiga_mas_a_la_izquierda), A
+
+begin_game_tick:
+    MOV A, (milisegundos)
+    MOV (var_marca_temporal), A
+    _gt_lock:
+    MOV A, (milisegundos)
+    CMP A, (var_marca_temporal)
+    JGE _gt_no_wrap
+    ADD A, 1000
+    _gt_no_wrap:
+    SUB A, (var_marca_temporal)
+    CMP A, (def_game_tick)
+    JLT _gt_lock
+end_game_tick:
+
+begin_movimiento_nave_principal:
+    _mnp_revisar_mover_derecha:
+    MOV A, 0b1000
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE _mnp_revisar_mover_izquierda
+    MOV A, (nave_principal_x)
+    CMP A, (def_naves_max_x)
+    JGE _mnp_revisar_mover_izquierda
+    MOV A, (nave_principal_x)
+    ADD A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_x), A
+    JMP end_movimiento_nave_principal
+
+    _mnp_revisar_mover_izquierda:
+    MOV A, 0b100
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE _mnp_revisar_mover_arriba
+    MOV A, (nave_principal_x)
+    CMP A, (def_naves_min_x)
+    JLE _mnp_revisar_mover_arriba
+    MOV A, (nave_principal_x)
+    SUB A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_x), A
+    JMP end_movimiento_nave_principal
+
+    _mnp_revisar_mover_arriba:
+    MOV A, 0b10
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE _mnp_revisar_mover_abajo
+    MOV A, (nave_principal_y)
+    CMP A, (def_nave_principal_min_y)
+    JLE _mnp_revisar_mover_abajo
+    MOV A, (nave_principal_y)
+    SUB A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_y), A
+    JMP end_movimiento_nave_principal
+
+    _mnp_revisar_mover_abajo:
+    MOV A, 0b10000
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE end_movimiento_nave_principal
+    MOV A, (nave_principal_y)
+    CMP A, (def_nave_principal_max_y)
+    JGE end_movimiento_nave_principal
+    MOV A, (nave_principal_y)
+    ADD A, (def_nave_principal_mov_speed)
+    MOV (nave_principal_y), A
+end_movimiento_nave_principal:
+
+begin_movimiento_automatico_naves_enemigas:
+    _mane_check_direction:
+    MOV A, (var_direction)
+    CMP A, (def_direction_right)
+    JNE _mane_move_left
+    
+    _mane_move_right:
+    CALL meth_mov_naves_enemigas_right
+
+    ;-- revisar si cambiamos de dirección
+    MOV A, (var_nave_enemiga_mas_a_la_derecha)
+    MOV B, A
+    MOV A, (B)
+    CMP A, (def_naves_max_x)
+    JLT end_movimiento_automatico_naves_enemigas
+    MOV A, (def_direction_left)
+    MOV (var_direction), A
+    JMP end_movimiento_automatico_naves_enemigas
+
+    _mane_move_left:
+    CALL meth_mov_naves_enemigas_left
+
+    ;-- revisar si cambiamos de dirección
+    MOV A, (var_nave_enemiga_mas_a_la_izquierda)
+    MOV B, A
+    MOV A, (B)
+    CMP A, (def_naves_min_x)
+    JGT end_movimiento_automatico_naves_enemigas
+    MOV A, (def_direction_right)
+    MOV (var_direction), A
+end_movimiento_automatico_naves_enemigas:
+
+begin_disparo_good_ammo:
+    MOV A, 0b1
+    CALL fn_revisar_boton_no_safe
+    CMP A, 1
+    JNE end_disparo_good_ammo
+    CALL meth_obtener_good_ammo_disponible
+    CMP A, 0
+    JEQ end_disparo_good_ammo
+
+    MOV B, A
+    MOV A, (def_nave_principal_width)
+    SHR A
+    ADD A, (nave_principal_x)
+    MOV (B), A
+    INC B
+    MOV A, (nave_principal_y)
+    SUB A, (def_good_ammo_height)
+    MOV (B), A
+
+end_disparo_good_ammo:
+
+begin_movimiento_good_ammo:
+    // probemos el disparo con el infinito
+    CALL meth_mov_good_ammo
+end_movimiento_good_ammo:
+
+// begin_revisar_colision:
+//     // Tiene sentido horizontal?
+//     MOV A, good_ammo_1_x
+//     CALL meth_collition_check_horizontal
+//     CMP A, 0
+//     JEQ end_revisar_colision
+//     MOV A, good_ammo_1_y
+//     CALL meth_collition_check_vertical
+//     CMP A, 0
+//     JEQ end_revisar_colision
+//     INC (var_total_score)
+//     MOV A, (var_total_score)
+//     MOV (displays), A
+//     MOV A, 800
+//     MOV (good_ammo_1_x), A
+//     MOV A, 0
+//     MOV (var_good_ammo_1_viva), A
+//     CALL meth_determinar_mas_a_la_izquierda
+//     CALL meth_determinar_mas_a_la_derecha
+// end_revisar_colision:
+
+// begin_revisar_todos_muertos:
+//     MOV A, (var_total_score)
+//     CMP A, 10
+//     JEQ fase_2
+// end_revisar_todos_muertos:
+
+JMP begin_game_tick
+
+fase_2:
+JMP fase_2
