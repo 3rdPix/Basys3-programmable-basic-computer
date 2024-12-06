@@ -1,3 +1,6 @@
+Este es el famoso jueguito de space invaders... solo que modificado para que sea
+Su-Invaders hahah.... (no funciona).
+
 DATA:
 
 ; Direcciones I/O reservadas
@@ -896,6 +899,14 @@ posiciones_iniciales:
     MOV (var_nave_enemiga_mas_a_la_izquierda), A
 
 begin_game_tick:
+    // me tomó demasiado tiempo darme cuenta de cuál era la magia
+    // para hacer funcionar todo tipo de movimiento no sincronizado
+    // o con velocidades distintas... pero se pudo hshdshd
+    // este game_tick es un pro move de 9000 de IQ que hace que
+    // todas las cosas se muevan al mismo ritmo, pero en velocidades
+    // personalizadas. Otra implementación más que cae dentro de la
+    // categoría "cosas que si las ves o te explican son demasiado
+    // obvias pero que no se te ocurrirían a la primera por tu cuenta"
     MOV A, (milisegundos)
     MOV (var_marca_temporal), A
     _gt_lock:
@@ -1020,6 +1031,15 @@ begin_movimiento_good_ammo:
     CALL meth_mov_good_ammo
 end_movimiento_good_ammo:
 
+;-- mensaje desde el futuro:
+;--     Ya caché cuál era el problema. revisas si X está
+;--     en una región válida de una nave enemiga, y luego
+;--     revisas si Y está en una región válida. Pero en ningún
+;--     momento revisas si las regiones pertenecen a la misma nave
+;--     por eso se muere la primera nave de la fila siempre, ya que
+;--     el puntero se ajusta a esa al coincidir verticalmente
+;--     hay que arreglar esto en la v2 donde aprovecharemos de utilizar
+;--     arrays dinámicos... eso haha salu2
 // begin_revisar_colision:
 //     // Tiene sentido horizontal?
 //     MOV A, good_ammo_1_x
